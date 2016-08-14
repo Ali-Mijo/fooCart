@@ -72,7 +72,7 @@ class AuthController extends BasePublicController
             ]);
         }
 
-        return redirect('login.show');
+        return redirect('public.login');
     }
 
     /**

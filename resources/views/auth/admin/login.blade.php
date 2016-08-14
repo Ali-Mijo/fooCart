@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('content')
-    <h1>User Login</h1>
+    <h1>Admin Login</h1>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
