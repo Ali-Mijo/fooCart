@@ -50,7 +50,7 @@ class InvoiceItem extends Model
      */
     public function invoice()
     {
-        return $this->belongsTo('fooCart\Core\Models\Invoice');
+        return $this->belongsTo(Invoice::class);
     }
 
     /**
@@ -60,7 +60,7 @@ class InvoiceItem extends Model
      */
     public function shipment()
     {
-        return $this->belongsTo('fooCart\Core\Models\Shipment');
+        return $this->belongsTo(Shipment::class);
     }
 
     /**
@@ -70,7 +70,7 @@ class InvoiceItem extends Model
      */
     public function promotion()
     {
-        return $this->belongsTo('fooCart\Core\Models\PromoCode', 'promo_code_id');
+        return $this->belongsTo(PromoCode::class, 'promo_code_id');
     }
 
     /**
@@ -80,7 +80,7 @@ class InvoiceItem extends Model
      */
     public function taxRate()
     {
-        return $this->belongsTo('fooCart\Core\Models\TaxRate', 'tax_id');
+        return $this->belongsTo(TaxRate::class, 'tax_id');
     }
 
     /**
@@ -90,7 +90,7 @@ class InvoiceItem extends Model
      */
     public function type()
     {
-        return $this->belongsTo('fooCart\Core\Models\InvoiceItemType');
+        return $this->belongsTo(InvoiceItemType::class);
     }
 
     /**
@@ -100,7 +100,7 @@ class InvoiceItem extends Model
      */
     public function product()
     {
-        return $this->belongsTo('fooCart\Core\Models\Product');
+        return $this->belongsTo(Product::class);
     }
 
     /**

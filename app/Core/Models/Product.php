@@ -39,7 +39,7 @@ class Product extends Model
      */
     public function manufacturer()
     {
-        return $this->belongsTo('fooCart\Core\Models\Manufacturer');
+        return $this->belongsTo(Manufacturer::class);
     }
 
     /**
@@ -49,7 +49,7 @@ class Product extends Model
      */
     public function shippingOptions()
     {
-        return $this->belongsToMany('fooCart\Core\Models\ShippingOption', 'product_shipping_options')
+        return $this->belongsToMany(ShippingOption::class, 'product_shipping_options')
             ->withPivot('shipping_cost', 'created_at', 'updated_at')
             ->withTimestamps();
     }
@@ -61,7 +61,7 @@ class Product extends Model
      */
     public function images()
     {
-        return $this->hasMany('fooCart\Core\Models\ProductImage');
+        return $this->hasMany(ProductImage::class);
     }
 
     /**
@@ -71,7 +71,7 @@ class Product extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany('fooCart\Core\Models\Category', 'product_categories');
+        return $this->belongsToMany(Category::class, 'product_categories');
     }
 
     /**

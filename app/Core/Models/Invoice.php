@@ -2,6 +2,7 @@
 
 namespace fooCart\Core\Models;
 
+use fooCart\Core\User\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
@@ -43,7 +44,7 @@ class Invoice extends Model
      */
     public function invoiceItems()
     {
-        return $this->hasMany('fooCart\Core\Models\InvoiceItem');
+        return $this->hasMany(InvoiceItem::class);
     }
 
     /**
@@ -53,7 +54,7 @@ class Invoice extends Model
      */
     public function shipments()
     {
-        return $this->hasMany('fooCart\Core\Models\Shipment');
+        return $this->hasMany(Shipment::class);
     }
 
     /**
@@ -63,7 +64,7 @@ class Invoice extends Model
      */
     public function user()
     {
-        return $this->belongsTo('fooCart\Core\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -73,7 +74,7 @@ class Invoice extends Model
      */
     public function promotion()
     {
-        return $this->belongsTo('fooCart\Core\Models\PromoCode', 'promo_code_id');
+        return $this->belongsTo(PromoCode::class, 'promo_code_id');
     }
 
     /**
@@ -83,7 +84,7 @@ class Invoice extends Model
      */
     public function bankcard()
     {
-        return $this->belongsTo('fooCart\Core\Models\Bankcard', 'promo_code_id');
+        return $this->belongsTo(Bankcard::class, 'promo_code_id');
     }
 
     /**
