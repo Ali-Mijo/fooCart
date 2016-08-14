@@ -26,7 +26,7 @@ class UserController extends BasePublicController
      */
     public function create()
     {
-        //
+        return view('auth.register');
     }
 
     /**

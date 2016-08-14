@@ -16,5 +16,10 @@ Route::group(['middleware' => 'userRequired'], function ()
         'as' => 'login.authenticate',
         'uses' => 'Auth\AuthController@login'
     ]);
+
+    Route::get('register', [
+        'as' => 'user.create',
+        'uses' => 'UserController@Create'
+    ]);
 });
 
