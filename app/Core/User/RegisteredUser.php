@@ -15,10 +15,10 @@ class RegisteredUser extends User
      */
     protected $table = 'users';
 
-    protected $guarded = ['active'];
+    protected $guarded = [];
 
     /**
-     * Create a registered user.
+     * Transform a temp user into a registered user.
      *
      * @param array $userData
      * @return static
@@ -26,9 +26,9 @@ class RegisteredUser extends User
     public function update(array $userData = [])
     {
         $userData['role_id'] = 2;
+        $userData['active'] = true;
         $user = parent::update($userData);
         //TODO - Broadcast registerdUserCreated event
-        //TODO - Transfer cart from temp user to reg user
         //TODO - Send welcome email
         return $user;
     }
