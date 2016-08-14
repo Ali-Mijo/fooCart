@@ -15,13 +15,15 @@ class RegisteredUser extends User
      */
     protected $table = 'users';
 
+    protected $guarded = ['active'];
+
     /**
      * Create a registered user.
      *
      * @param array $userData
      * @return static
      */
-    public static function create(array $userData)
+    public static function create(array $userData = [])
     {
         $userData['role_id'] = 2;
         $user = parent::create($userData);

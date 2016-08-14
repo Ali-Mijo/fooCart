@@ -2,6 +2,9 @@
 
 namespace fooCart\Core\User;
 
+use Exception;
+use fooCart\Core\Exceptions\InvalidUserRoleException;
+use fooCart\Core\Exceptions\UserNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -37,7 +40,7 @@ class User extends Authenticatable
      */
     public function isTempUser()
     {
-        return (1 === $this->role_id) ? true : false;
+        return (1 == $this->role_id) ? true : false;
     }
 
     /**
@@ -57,17 +60,40 @@ class User extends Authenticatable
      */
     public function isAdminUser()
     {
-        return (3 === $this->role_id) ? true : false;
+        return (3 == $this->role_id) ? true : false;
     }
 
     /**
-     * Get an instance of the user model.
-     * The instance reflects the user's role.
+     * Factory method for returning user model by role.
+     * The instance of the model reflects the user's role.
      *
      * @param $userId
+     * @return AdminUser|RegisteredUser|TempUser|null
+     * @throws InvalidUserRoleException
+     * @throws UserNotFoundException
      */
-    public function getUserById($userId)
+    public static function getUserById($userId)
     {
-        //TODO - Return an instance of the appropriate user model, depending on the role_id.
+        try {
+            $user = User::findOrFail($userId);
+        } catch (Exception $e) {
+            throw new UserNotFoundException($e->getMessage());
+        }
+
+        switch ($user->role_id) {
+            case 1:
+                return new TempUser($user->toArray());
+                break;
+            case 2:
+                return new RegisteredUser($user->toArray());
+                break;
+            case 3:
+                return new AdminUser($user->toArray());
+                break;
+            default:
+                //TODO - Log this
+                throw new InvalidUserRoleException();
+        }
+        return null;
     }
 }

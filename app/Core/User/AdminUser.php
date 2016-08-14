@@ -27,7 +27,7 @@ class AdminUser extends User
      * @param array $userData
      * @return static
      */
-    public static function create(array $userData)
+    public static function create(array $userData = [])
     {
         $userData['role_id'] = 3;
         return parent::create($userData);
