@@ -15,7 +15,6 @@ class UserTableSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Justin',
                 'email' => 'justin@justinc.me',
                 'first_name' => 'Justin',
                 'last_name' => 'Christenson',
@@ -24,7 +23,6 @@ class UserTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'name' => 'John',
                 'email' => 'john@justinc.me',
                 'first_name' => 'John',
                 'last_name' => 'Dojo',
@@ -33,11 +31,10 @@ class UserTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'name' => '',
                 'email' => 3 . '-' . uniqid() . '@foocart.dev',
                 'password' => bcrypt(3 . '-' . uniqid() . '@foocart.dev'),
                 'role_id' => 1,
-                'active' => true
+                'active' => false
             ],
         ];
 
