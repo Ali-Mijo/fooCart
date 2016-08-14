@@ -23,10 +23,10 @@ class RegisteredUser extends User
      * @param array $userData
      * @return static
      */
-    public static function create(array $userData = [])
+    public function update(array $userData = [])
     {
         $userData['role_id'] = 2;
-        $user = parent::create($userData);
+        $user = parent::update($userData);
         //TODO - Broadcast registerdUserCreated event
         //TODO - Transfer cart from temp user to reg user
         //TODO - Send welcome email
