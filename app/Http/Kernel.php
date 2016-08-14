@@ -49,5 +49,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \fooCart\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'userRequired' => \fooCart\Http\Middleware\UserRequired::class
     ];
 }
