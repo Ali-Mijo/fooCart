@@ -32,7 +32,7 @@ class TempUser extends User
         $userData['email'] = 'tmp-' . uniqid() .'@' . env('TMP_USER_DOMAIN');
         $userData['password'] = bcrypt(uniqid());
         $userData['role_id'] = 1;
-        $userData['active'] = true;
+        $userData['active'] = false;
         return parent::create($userData);
     }
 
