@@ -2,71 +2,96 @@
 
 namespace fooCart\Http\Controllers\Auth;
 
-use fooCart\User;
-use Validator;
-use fooCart\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use fooCart\Http\Controllers\BasePublicController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+/**
+ * Class AuthController
+ * @package fooCart\Http\Controllers\Auth
+ */
+class AuthController extends BasePublicController
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
-
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    /**
+     * @var Request
+     */
+    protected $request;
+    /**
+     * @var mixed
+     */
+    protected $postLogout;
 
     /**
-     * Where to redirect users after login / registration.
-     *
-     * @var string
+     * AuthController constructor.
+     * @param Request $request
      */
-    protected $redirectTo = '/';
-
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->postLogout = env('POST_LOGOUT_URL');
+        $this->request = $request;
+        parent::__construct($request);
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Show the form for authenticating a user.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function validator(array $data)
+    public function show()
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
+        return view('auth.login');
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Log a user in.
      *
-     * @param  array  $data
-     * @return User
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|string
      */
-    protected function create(array $data)
+    public function login(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'active' => true])) {
+            $user = Auth::user();
+
+            session()->set([
+                'userId' => $user->id,
+                'userName' => $user->name
+            ]);
+
+            if ($this->request->ajax()) {
+                return json_encode([
+                    'status' => 'success'
+                ]);
+            }
+            //Redirect to user account page if not AJAX
+        }
+
+        if ($this->request->ajax()) {
+            return json_encode([
+                'status' => 'error'
+            ]);
+        }
+
+        return redirect('login.show');
+    }
+
+    /**
+     * Log a user out.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|string
+     */
+    public function logout(Request $request)
+    {
+        session()->forget('userId');
+
+        if ($this->request->ajax()) {
+            return json_encode([
+                'status' => 'success',
+                'url' => $this->postLogout
+            ]);
+        }
+
+        return redirect($this->postLogout);
     }
 }
