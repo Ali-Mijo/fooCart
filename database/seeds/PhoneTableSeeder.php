@@ -1,6 +1,6 @@
 <?php
 
-use fooCart\Core\Models\Phone;
+use fooCart\Core\Phone\Phone;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 

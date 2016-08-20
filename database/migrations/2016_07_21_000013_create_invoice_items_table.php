@@ -23,13 +23,6 @@ class CreateInvoiceItemsTable extends Migration
                 ->references('id')
                 ->on('products')
                 ->onDelete('cascade');
-            $table->integer('type_id') //line item, product, etc
-                ->unsigned()
-                ->index();
-            $table->foreign('type_id')
-                ->references('id')
-                ->on('invoice_item_types')
-                ->onDelete('cascade');
             $table->integer('shipment_id')
                 ->unsigned()
                 ->index()
@@ -58,8 +51,7 @@ class CreateInvoiceItemsTable extends Migration
                 ->onDelete('cascade');
             $table->integer('tax_id')
                 ->unsigned()
-                ->index()
-                ->nullable();
+                ->index();
             $table->foreign('tax_id')
                 ->references('id')
                 ->on('tax_rates')

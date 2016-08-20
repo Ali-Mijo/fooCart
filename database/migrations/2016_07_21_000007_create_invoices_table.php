@@ -15,13 +15,9 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')
-                ->unsigned()
-                ->index();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+            $table->integer('userable_id')
+                ->unsigned();
+            $table->enum('userable_type', ['RegisteredUser', 'GuestUser']);
             $table->integer('status_id')
                 ->unsigned()
                 ->index();

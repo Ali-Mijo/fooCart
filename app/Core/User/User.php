@@ -2,9 +2,6 @@
 
 namespace fooCart\Core\User;
 
-use Exception;
-use fooCart\Core\Exceptions\InvalidUserRoleException;
-use fooCart\Core\Exceptions\UserNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -14,13 +11,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     /**
-     * The attributes that are not mass assignable.
+     * The attributes that are not assignable.
      *
      * @var array
      */
     protected $guarded = [
-        'role_id',
-        'active'
+        'id',
+        'userable_type',
+        'userable_id'
     ];
 
     /**
@@ -34,13 +32,13 @@ class User extends Authenticatable
     ];
 
     /**
-     * Determine the user is a temp (unregistered) user.
+     * Define relationship to user type.
      *
-     * @return bool
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function isTempUser()
+    public function userable()
     {
-        return (1 == $this->role_id) ? true : false;
+        return $this->morphTo();
     }
 
     /**
@@ -50,7 +48,7 @@ class User extends Authenticatable
      */
     public function isRegisteredUser()
     {
-        return (2 == $this->role_id) ? true : false;
+        return ('RegisteredUser' == $this->userable_type) ? true : false;
     }
 
     /**
@@ -60,40 +58,6 @@ class User extends Authenticatable
      */
     public function isAdminUser()
     {
-        return (3 == $this->role_id) ? true : false;
-    }
-
-    /**
-     * Factory method for returning user model by role.
-     * The instance of the model reflects the user's role.
-     *
-     * @param $userId
-     * @return AdminUser|RegisteredUser|TempUser|null
-     * @throws InvalidUserRoleException
-     * @throws UserNotFoundException
-     */
-    public static function getUserById($userId)
-    {
-        try {
-            $user = User::findOrFail($userId);
-        } catch (Exception $e) {
-            throw new UserNotFoundException($e->getMessage());
-        }
-
-        switch ($user->role_id) {
-            case 1:
-                return new TempUser($user->toArray());
-                break;
-            case 2:
-                return new RegisteredUser($user->toArray());
-                break;
-            case 3:
-                return new AdminUser($user->toArray());
-                break;
-            default:
-                //TODO - Log this
-                throw new InvalidUserRoleException();
-        }
-        return null;
+        return ('AdminUser' == $this->userable_type) ? true : false;
     }
 }

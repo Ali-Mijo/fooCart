@@ -1,6 +1,6 @@
 <?php
 
-use fooCart\Core\Models\InvoiceStatus;
+use fooCart\Core\Invoice\InvoiceStatus;
 use Illuminate\Database\Seeder;
 
 class InvoiceStatusTableSeeder extends Seeder

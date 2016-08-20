@@ -1,6 +1,6 @@
 <?php
 
-use fooCart\Core\Models\ProductImage;
+use fooCart\Core\Product\ProductImage;
 use Illuminate\Database\Seeder;
 
 class ProductImageTableSeeder extends Seeder

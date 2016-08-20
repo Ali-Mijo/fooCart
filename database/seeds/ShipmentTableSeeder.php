@@ -1,7 +1,7 @@
 <?php
 
 use Carbon\Carbon;
-use fooCart\Core\Models\Shipment;
+use fooCart\Core\Invoice\Shipment\Shipment;
 use Illuminate\Database\Seeder;
 
 class ShipmentTableSeeder extends Seeder

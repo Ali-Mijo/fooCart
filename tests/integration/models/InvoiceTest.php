@@ -1,6 +1,6 @@
 <?php
 
-use fooCart\Core\Models\Invoice;
+use fooCart\Core\Invoice\Invoice;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -14,7 +14,7 @@ class InvoiceTest extends TestCase
      */
     public function testGetPriceTotalIsAccurate()
     {
-        $this->assertEquals(2125.39, Invoice::find(1)->getPriceTotal());
+        $this->assertEquals(3559.99, Invoice::find(1)->getPriceTotal());
     }
 
     /**
@@ -30,7 +30,7 @@ class InvoiceTest extends TestCase
      */
     public function testGetPercentInvoicePromotionTotalIsAccurate()
     {
-        $this->assertEquals(180.015, Invoice::find(3)->getInvoicePromotionTotal());
+        $this->assertEquals(174.015, Invoice::find(3)->getInvoicePromotionTotal());
     }
 
     /**
@@ -38,7 +38,7 @@ class InvoiceTest extends TestCase
      */
     public function testGetPriceSubtotalIsAccurate()
     {
-        $this->assertEquals(1800.15, Invoice::find(3)->getPriceSubtotal());
+        $this->assertEquals(1740.15, Invoice::find(3)->getPriceSubtotal());
     }
 
     /**
@@ -46,7 +46,7 @@ class InvoiceTest extends TestCase
      */
     public function testGetTaxTotalIsAccurate()
     {
-        $this->assertEquals(38.0, Invoice::find(1)->getTaxTotal());
+        $this->assertEquals(64.60, Invoice::find(1)->getTaxTotal());
     }
 
     /**

@@ -2,7 +2,6 @@
 
 use fooCart\Core\User\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -14,27 +13,43 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         $users = [
+            //Admin Users
             [
                 'email' => 'justin@justinc.me',
-                'first_name' => 'Justin',
-                'last_name' => 'Christenson',
                 'password' => bcrypt('password1'),
-                'role_id' => 3,
-                'active' => true
+                'userable_id' => 1,
+                'userable_type' => 'AdminUser'
             ],
             [
-                'email' => 'john@justinc.me',
-                'first_name' => 'John',
-                'last_name' => 'Dojo',
-                'password' => bcrypt('password2'),
-                'role_id' => 2,
-                'active' => true
+                'email' => 'admin.user1@justinc.me',
+                'password' => bcrypt('password1'),
+                'userable_id' => 2,
+                'userable_type' => 'AdminUser'
             ],
             [
-                'email' => 3 . '-' . uniqid() . '@foocart.dev',
-                'password' => bcrypt(3 . '-' . uniqid() . '@foocart.dev'),
-                'role_id' => 1,
-                'active' => false
+                'email' => 'admin.user2@justinc.me',
+                'password' => bcrypt('password1'),
+                'userable_id' => 3,
+                'userable_type' => 'AdminUser'
+            ],
+            //Registered Users
+            [
+                'email' => 'info@justinc.me',
+                'password' => bcrypt('password'),
+                'userable_id' => 1,
+                'userable_type' => 'RegisteredUser'
+            ],
+            [
+                'email' => 'reg.user1@justinc.me',
+                'password' => bcrypt('password'),
+                'userable_id' => 2,
+                'userable_type' => 'RegisteredUser'
+            ],
+            [
+                'email' => 'reg.user2@justinc.me',
+                'password' => bcrypt('password'),
+                'userable_id' => 3,
+                'userable_type' => 'RegisteredUser'
             ],
         ];
 

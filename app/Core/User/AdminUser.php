@@ -3,18 +3,20 @@
 
 namespace fooCart\Core\User;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class AdminUser
  * @package fooCart\Core\User
  */
-class AdminUser extends User
+class AdminUser extends Authenticatable
 {
+
 
     /**
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'admin_users';
 
     /**
      * @var array
@@ -22,15 +24,13 @@ class AdminUser extends User
     protected $guarded = [];
 
     /**
-     * Create an administrative user.
+     * Polymorphic relationship to User class.
      *
-     * @param array $userData
-     * @return static
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public static function create(array $userData = [])
+    public function user()
     {
-        $userData['role_id'] = 3;
-        return parent::create($userData);
+        return $this->morphOne(User::class, 'userable');
     }
 
 }

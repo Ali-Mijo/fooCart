@@ -1,6 +1,6 @@
 <?php
 
-use fooCart\Core\Models\Manufacturer;
+use fooCart\Core\Product\Manufacturer;
 use Illuminate\Database\Seeder;
 
 class ManufacturerTableSeeder extends Seeder

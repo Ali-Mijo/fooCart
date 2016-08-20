@@ -1,6 +1,6 @@
 <?php
 
-use fooCart\Core\Models\InvoiceItem;
+use fooCart\Core\Invoice\Item\InvoiceItem;
 use Illuminate\Database\Seeder;
 
 class InvoiceItemTableSeeder extends Seeder
@@ -16,12 +16,11 @@ class InvoiceItemTableSeeder extends Seeder
             //Invoice 1
             //Shipment 1
             [ //tax, quantity > 1, amount promo
-                'type_id' => 1,
                 'product_id' => rand(1, 4),
                 'shipment_id' => 1,
                 'invoice_id' => 1,
                 'quantity' => 2,
-                'unit_price' => 250.00,
+                'unit_price' => 950.00,
                 'promo_code_id' => 1,
                 'tax_id' => 3,
                 'shipping_total' => 60.10,
@@ -29,7 +28,6 @@ class InvoiceItemTableSeeder extends Seeder
             ],
             //Shipment 1
             [ //tax, quantity > 1, percentage promo
-                'type_id' => 1,
                 'product_id' => rand(1, 4),
                 'shipment_id' => 1,
                 'invoice_id' => 1,
@@ -42,7 +40,6 @@ class InvoiceItemTableSeeder extends Seeder
             ],
             //Shipment 2
             [ //tax, quantity > 1, no promo
-                'type_id' => 1,
                 'product_id' => rand(1, 4),
                 'shipment_id' => 2,
                 'invoice_id' => 1,
@@ -57,7 +54,6 @@ class InvoiceItemTableSeeder extends Seeder
             //Invoice 2
             //Shipment 3
             [ //tax, quantity = 1, amount promo
-                'type_id' => 1,
                 'product_id' => rand(1, 4),
                 'shipment_id' => 3,
                 'invoice_id' => 2,
@@ -70,7 +66,6 @@ class InvoiceItemTableSeeder extends Seeder
             ],
             //Shipment 3
             [ //tax, quantity = 1, percentage promo
-                'type_id' => 1,
                 'product_id' => rand(1, 4),
                 'shipment_id' => 3,
                 'invoice_id' => 2,
@@ -85,7 +80,6 @@ class InvoiceItemTableSeeder extends Seeder
             //Invoice 3
             //Shipment 4
             [ //tax, quantity = 1, no promo
-                'type_id' => 1,
                 'product_id' => rand(1, 4),
                 'shipment_id' => 4,
                 'invoice_id' => 3,
@@ -98,7 +92,6 @@ class InvoiceItemTableSeeder extends Seeder
             ],
             //Shipment 4
             [ //tax, quantity = 1, percentage promo
-                'type_id' => 1,
                 'product_id' => rand(1, 4),
                 'shipment_id' => 4,
                 'invoice_id' => 3,
@@ -111,7 +104,6 @@ class InvoiceItemTableSeeder extends Seeder
             ],
             //Shipment 5
             [ //tax, quantity > 1, amount promo
-                'type_id' => 1,
                 'product_id' => rand(1, 4),
                 'shipment_id' => 5,
                 'invoice_id' => 3,
@@ -124,7 +116,6 @@ class InvoiceItemTableSeeder extends Seeder
             ],
             //Shipment 5
             [ //tax, quantity > 1, percentage promo
-                'type_id' => 1,
                 'product_id' => rand(1, 4),
                 'shipment_id' => 5,
                 'invoice_id' => 3,
@@ -134,15 +125,7 @@ class InvoiceItemTableSeeder extends Seeder
                 'tax_id' => 3,
                 'shipping_total' => 60.10,
                 'shipping_option_id' => 4
-            ],
-            //Shipment 5
-            [ //Price Override (manual discount)
-                'type_id' => 3,
-                'shipment_id' => 5,
-                'invoice_id' => 3,
-                'quantity' => 1,
-                'unit_price' => 40.00
-            ],
+            ]
         ];
 
         foreach ($invoiceItems as $item) {

@@ -1,6 +1,6 @@
 <?php
 
-use fooCart\Core\Models\Category;
+use fooCart\Core\Product\Category;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 

@@ -1,6 +1,6 @@
 <?php
 
-use fooCart\Core\Models\SlideshowImage;
+use fooCart\Core\Slideshow\SlideshowImage;
 use Illuminate\Database\Seeder;
 
 class SlideshowImageTableSeeder extends Seeder

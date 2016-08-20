@@ -17,20 +17,10 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email')
                 ->unique();
-            $table->string('first_name')
-                ->nullable();
-            $table->string('last_name')
-                ->nullable();
-            $table->string('secondary_email')->nullable();
             $table->string('password', 60);
-            $table->integer('role_id')
+            $table->integer('userable_id')
                 ->unsigned();
-            $table->foreign('role_id')
-                ->references('id')
-                ->on('roles')
-                ->onDelete('cascade');
-            $table->boolean('active')
-                ->default('true');
+            $table->enum('userable_type', ['RegisteredUser', 'AdminUser']);
             $table->rememberToken();
             $table->timestamps();
         });

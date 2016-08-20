@@ -1,7 +1,7 @@
 <?php
 
-use fooCart\Core\Models\PromoCode;
 use Carbon\Carbon;
+use fooCart\Core\Invoice\PromoCode;
 use Illuminate\Database\Seeder;
 
 class PromoCodeTableSeeder extends Seeder

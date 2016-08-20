@@ -1,8 +1,8 @@
 <?php
 
 use fooCart\Core\User\AdminUser;
+use fooCart\Core\User\GuestUser;
 use fooCart\Core\User\RegisteredUser;
-use fooCart\Core\User\TempUser;
 use fooCart\Core\User\User;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -12,14 +12,14 @@ class UserTest extends TestCase
 {
     protected $adminUser;
     protected $registeredUser;
-    protected $tempUser;
+    protected $guestUser;
 
     public function setUp()
     {
         parent::setUp();
-        $this->adminUser = User::getUserById(1);
-        $this->registeredUser = User::getUserById(2);
-        $this->tempUser = User::getUserById(3);
+        $this->adminUser = User::find(1)->userable()->first();
+        $this->registeredUser = User::find(4)->userable()->first();
+        $this->guestUser = GuestUser::find(1);
     }
 
     /**
@@ -27,7 +27,7 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function testAdminUserIsReturned()
+    public function testAdminUserIsReturnedFromUserModel()
     {
         $this->assertInstanceOf(AdminUser::class, $this->adminUser);
     }
@@ -37,19 +37,9 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function testRegisteredUserIsReturned()
+    public function testRegisteredUserIsReturnedFromUserModel()
     {
         $this->assertInstanceOf(RegisteredUser::class, $this->registeredUser);
-    }
-
-    /**
-     * Test the getUserById method returns the appropriate model.
-     *
-     * @return void
-     */
-    public function testTempUserIsReturned()
-    {
-        $this->assertInstanceOf(TempUser::class, $this->tempUser);
     }
 
     /**
@@ -57,9 +47,8 @@ class UserTest extends TestCase
      */
     public function testIsAdminUserMethodWorks()
     {
-        $this->assertTrue($this->adminUser->isAdminUser());
-        $this->assertFalse($this->adminUser->isRegisteredUser());
-        $this->assertFalse($this->adminUser->isTempUser());
+        $this->assertTrue($this->adminUser->user()->first()->isAdminUser());
+        $this->assertFalse($this->adminUser->user()->first()->isRegisteredUser());
     }
 
     /**
@@ -67,18 +56,7 @@ class UserTest extends TestCase
      */
     public function testIsRegisteredUserMethodWorks()
     {
-        $this->assertFalse($this->registeredUser->isAdminUser());
-        $this->assertTrue($this->registeredUser->isRegisteredUser());
-        $this->assertFalse($this->registeredUser->isTempUser());
-    }
-
-    /**
-     * Test that the User::isTempUser() method behaves as expected.
-     */
-    public function testIsTempUserMethodWorks()
-    {
-        $this->assertFalse($this->tempUser->isAdminUser());
-        $this->assertFalse($this->tempUser->isRegisteredUser());
-        $this->assertTrue($this->tempUser->isTempUser());
+        $this->assertFalse($this->registeredUser->user()->first()->isAdminUser());
+        $this->assertTrue($this->registeredUser->user()->first()->isRegisteredUser());
     }
 }

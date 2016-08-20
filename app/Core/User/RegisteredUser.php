@@ -3,33 +3,42 @@
 
 namespace fooCart\Core\User;
 
+use fooCart\Core\Invoice\Invoice;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class RegisteredUser
  * @package fooCart\Core\User
  */
-class RegisteredUser extends User
+class RegisteredUser extends Authenticatable
 {
     /**
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'registered_users';
 
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
     /**
-     * Transform a temp user into a registered user.
+     * Polymorphic relationship to User class.
      *
-     * @param array $userData
-     * @return static
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function update(array $userData = [])
+    public function user()
     {
-        $userData['role_id'] = 2;
-        $userData['active'] = true;
-        $user = parent::update($userData);
-        //TODO - Broadcast registerdUserCreated event
-        //TODO - Send welcome email
-        return $user;
+        return $this->morphOne(User::class, 'userable');
+    }
+
+    /**
+     * Define the relationship to invoice.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function invoices()
+    {
+        return $this->morphOne(Invoice::class, 'userable');
     }
 }

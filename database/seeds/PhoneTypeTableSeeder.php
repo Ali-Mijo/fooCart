@@ -1,6 +1,6 @@
 <?php
 
-use fooCart\Core\Models\PhoneType;
+use fooCart\Core\Phone\PhoneType;
 use Illuminate\Database\Seeder;
 
 class PhoneTypeTableSeeder extends Seeder

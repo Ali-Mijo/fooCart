@@ -1,7 +1,7 @@
 <?php
 
 use Carbon\Carbon;
-use fooCart\Core\Models\Product;
+use fooCart\Core\Product\Product;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
